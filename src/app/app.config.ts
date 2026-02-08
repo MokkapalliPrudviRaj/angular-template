@@ -3,13 +3,14 @@ import { provideRouter } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { LUCIDE_ICONS } from './shared/icons/lucide-icons';
 import { importProvidersFrom } from '@angular/core';
+import { withHashLocation } from '@angular/router';
 
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     importProvidersFrom(LucideAngularModule.pick(LUCIDE_ICONS)),
   ],
 };
