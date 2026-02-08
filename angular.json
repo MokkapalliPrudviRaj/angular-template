@@ -23,8 +23,9 @@
             "baseHref": "/angular-template/",
             "assets": [
               {
-                "glob": "**/*",
-                "input": "public"
+                "glob": "index.html",
+                "input": "dist/angular-template",
+                "output": "/404.html"
               }
             ],
             "styles": [
