@@ -37,7 +37,7 @@ jobs:
         run: cp dist/angular-template/index.html dist/angular-template/404.html
 
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: dist/angular-template
 
