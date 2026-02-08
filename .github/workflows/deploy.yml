@@ -36,10 +36,9 @@ jobs:
       - name: Ensure SPA routing
         run: cp dist/angular-template/index.html dist/angular-template/404.html
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v2
+      - name: Deploy to GitHub Pages (push gh-pages)
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: dist/angular-template
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/angular-template
+          publish_branch: gh-pages
