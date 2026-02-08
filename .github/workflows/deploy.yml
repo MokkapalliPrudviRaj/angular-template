@@ -34,7 +34,13 @@ jobs:
         run: ls -R dist || true
 
       - name: Ensure SPA routing
-        run: cp dist/angular-template/index.html dist/angular-template/404.html
+        run: |
+          if [ -f dist/angular-template/index.html ]; then
+            cp dist/angular-template/index.html dist/angular-template/404.html
+          else
+            echo "No index.html found at dist/angular-template — skipping 404 copy"
+            ls -la dist || true
+          fi
 
       - name: Deploy to GitHub Pages (push gh-pages)
         uses: peaceiris/actions-gh-pages@v3
