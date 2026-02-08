@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - 'feature/**'  # Optional: deploy from feature branches too
 
 permissions:
   contents: read
@@ -14,26 +15,34 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4️⃣ Build Angular app
       - name: Build Angular
         run: npm run build -- --configuration production --base-href ./
 
-      # Upload the built Angular app as a Pages artifact
+      # 5️⃣ Add 404.html for SPA routing
+      - name: Ensure SPA routing
+        run: cp dist/angular-template/index.html dist/angular-template/404.html
+
+      # 6️⃣ Upload build folder as Pages artifact
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: dist/angular-template
 
-      # Deploy the uploaded artifact
+      # 7️⃣ Deploy the uploaded artifact to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
