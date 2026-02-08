@@ -4,13 +4,9 @@ on:
   push:
     branches:
       - main
-      - master
-      - 'feature/**'
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build-and-deploy:
@@ -27,24 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Angular
-        run: npm run build -- --configuration production --base-href /angular-template/
-
-      - name: Show build output (debug)
-        run: ls -R dist || true
-
-      - name: Ensure SPA routing
-        run: |
-          if [ -f dist/angular-template/index.html ]; then
-            cp dist/angular-template/index.html dist/angular-template/404.html
-          else
-            echo "No index.html found at dist/angular-template — skipping 404 copy"
-            ls -la dist || true
-          fi
-
-      - name: Deploy to GitHub Pages (push gh-pages)
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/angular-template/browser
-          publish_branch: gh-pages
+      - name: Deploy using npm script
+        run: npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
