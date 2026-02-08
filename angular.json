@@ -20,7 +20,7 @@
             "outputPath": "dist/angular-template",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "baseHref": "/angular-template/",
+            "baseHref": "./",
             "assets": [
               {
                 "glob": "index.html",
