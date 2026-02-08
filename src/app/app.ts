@@ -10,5 +10,5 @@ import { LucideAngularModule } from 'lucide-angular';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('angular-template');
+  protected readonly title = signal('My Awesome App');
 }
